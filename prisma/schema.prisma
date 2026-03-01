@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+//////////////////////////////////////////////////
+// WEBSITE MODEL
+//////////////////////////////////////////////////
+
+model Website {
+  id            String         @id @default(uuid())
+  domain        String         @unique
+  createdAt     DateTime       @default(now())
+
+  crawlSessions CrawlSession[]
+}
+
+//////////////////////////////////////////////////
+// CRAWL SESSION MODEL
+//////////////////////////////////////////////////
+
+model CrawlSession {
+  id                String         @id @default(uuid())
+  websiteId         String
+  status            String         @default("pending")
+
+  crawlabilityScore Float?
+  indexabilityScore Float?
+  onPageScore       Float?
+  contentScore      Float?
+  programmaticScore Float?
+  overallScore      Float?
+
+  createdAt         DateTime       @default(now())
+
+  website       Website      @relation(fields: [websiteId], references: [id])
+  pages         Page[]
+  internalLinks InternalLink[]   // ✅ required opposite relation
+}
+
+//////////////////////////////////////////////////
+// PAGE MODEL
+//////////////////////////////////////////////////
+
+model Page {
+  id              String            @id @default(uuid())
+  crawlSessionId  String
+
+  url             String
+  title           String?
+  metaDescription String?
+  statusCode      Int?
+
+  wordCount       Int?
+  loadTimeMs      Int?
+  crawlDepth      Int?
+
+  createdAt       DateTime          @default(now())
+
+  crawlSession CrawlSession @relation(fields: [crawlSessionId], references: [id])
+  parameters   ParameterResult[]
+
+  @@index([url])
+}
+
+//////////////////////////////////////////////////
+// PARAMETER RESULT MODEL
+//////////////////////////////////////////////////
+
+model ParameterResult {
+  id            String   @id @default(uuid())
+  pageId        String
+
+  parameterName String
+  category      String
+
+  score         Float
+  passed        Boolean
+
+  createdAt     DateTime @default(now())
+
+  page Page @relation(fields: [pageId], references: [id])
+
+  @@index([parameterName])
+}
+
+//////////////////////////////////////////////////
+// INTERNAL LINK GRAPH MODEL
+//////////////////////////////////////////////////
+
+model InternalLink {
+  id             String       @id @default(uuid())
+  crawlSessionId String
+
+  sourceUrl      String
+  targetUrl      String
+
+  crawlSession   CrawlSession @relation(fields: [crawlSessionId], references: [id])
+
+  @@index([sourceUrl])
+  @@index([targetUrl])
+}
