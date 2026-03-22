@@ -23,24 +23,27 @@ model Website {
 //////////////////////////////////////////////////
 
 model CrawlSession {
-  id                String         @id @default(uuid())
-  websiteId         String
-  status            String         @default("pending")
+  id                   String   @id @default(uuid())
+  websiteId            String
+  status               String
 
-  crawlabilityScore Float?
-  indexabilityScore Float?
-  onPageScore       Float?
-  contentScore      Float?
-  programmaticScore Float?
-  overallScore      Float?
+  crawlabilityScore    Float?
+  indexabilityScore    Float?
+  onPageScore          Float?
+  contentScore         Float?
+  programmaticScore    Float?
+  overallScore         Float?
 
-  createdAt         DateTime       @default(now())
+  // ✅ ADD THESE (VERY IMPORTANT)
+  robotsTxt            String?
+  sitemapXml           String?
 
-  website       Website      @relation(fields: [websiteId], references: [id])
-  pages         Page[]
-  internalLinks InternalLink[]   // ✅ required opposite relation
+  createdAt            DateTime @default(now())
+
+  website              Website  @relation(fields: [websiteId], references: [id])
+  pages                Page[]
+  internalLinks        InternalLink[]
 }
-
 //////////////////////////////////////////////////
 // PAGE MODEL
 //////////////////////////////////////////////////
@@ -58,12 +61,15 @@ model Page {
   loadTimeMs      Int?
   crawlDepth      Int?
 
+  contentHash     String?   // ✅ ADD ONLY THIS LINE
+
   createdAt       DateTime          @default(now())
 
   crawlSession CrawlSession @relation(fields: [crawlSessionId], references: [id])
   parameters   ParameterResult[]
 
   @@index([url])
+  @@unique([crawlSessionId, url])
 }
 
 //////////////////////////////////////////////////

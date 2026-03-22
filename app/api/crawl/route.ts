@@ -1,35 +1,33 @@
 import { NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
+import { startCrawl } from "@/services/crawlService"
 
 export async function POST(req: Request) {
+
   try {
-    const { websiteId } = await req.json()
+
+    const body = await req.json()
+    const websiteId = body.websiteId
 
     if (!websiteId) {
       return NextResponse.json(
-        { error: "websiteId is required" },
+        { error: "websiteId required" },
         { status: 400 }
       )
     }
 
-    const crawl = await prisma.crawlSession.create({
-      data: {
-        websiteId,
-        status: "completed", // mock complete
-        crawlabilityScore: Math.random() * 100,
-        indexabilityScore: Math.random() * 100,
-        onPageScore: Math.random() * 100,
-        contentScore: Math.random() * 100,
-        programmaticScore: Math.random() * 100,
-        overallScore: Math.random() * 100,
-      }
+    const crawl = await startCrawl(websiteId)
+
+    return NextResponse.json({
+      success: true,
+      crawlId: crawl.id
     })
 
-    return NextResponse.json(crawl)
   } catch (error) {
-    console.error(error)
+
+    console.error("Crawl API error:", error)
+
     return NextResponse.json(
-      { error: "Crawl creation failed" },
+      { error: "Crawl failed" },
       { status: 500 }
     )
   }
