@@ -6,24 +6,23 @@
 
 ## 📌 Overview
 
-**PSRA (Programmatic SEO Readiness Analyzer)** is an AI-powered platform that evaluates a website’s SEO health and its readiness to scale using programmatic SEO strategies.
+**PSRA (Programmatic SEO Readiness Analyzer)** is an AI-driven platform designed to evaluate a website’s technical SEO health and its readiness to scale using programmatic SEO.
 
-Unlike traditional SEO audit tools, PSRA focuses on:
+Unlike traditional SEO audit tools, PSRA focuses on one core question:
 
-> **Can this website scale to hundreds or thousands of pages without breaking SEO performance?**
+> **Is this website structurally capable of scaling to hundreds or thousands of pages without breaking SEO performance?**
 
 ---
 
 ## 🎯 Product Vision
 
-Build a scalable SEO intelligence system that:
+Build a scalable intelligence engine that:
 
-- Crawls websites
-- Evaluates critical SEO parameters
-- Performs site-level analysis (not just page-level)
-- Computes SEO readiness score
-- Identifies scalability risks
-- Enables programmatic SEO decision-making
+* Crawls websites
+* Evaluates 40 critical SEO parameters
+* Scores crawlability, indexability, on-page SEO, content quality, and scalability
+* Determines programmatic SEO readiness
+* Provides structured, actionable insights
 
 ---
 
@@ -31,13 +30,14 @@ Build a scalable SEO intelligence system that:
 
 Most websites fail to scale organic traffic due to:
 
-- Poor crawlability & indexability
-- Weak internal linking architecture
-- Thin or duplicate content
-- Crawl inefficiencies
-- Lack of structured SEO systems
+* Poor crawlability & indexation
+* Weak internal linking architecture
+* Thin or duplicate content
+* Template inconsistency
+* Crawl budget inefficiencies
+* Lack of automation-ready metadata systems
 
-Existing tools audit SEO — but do not evaluate **scalability readiness**.
+Existing SEO tools perform audits — but do not evaluate **scalability intelligence**.
 
 PSRA solves this gap.
 
@@ -45,147 +45,150 @@ PSRA solves this gap.
 
 ## 🏗 System Architecture
 
-PSRA is built on a 5-layer SEO intelligence model:
+PSRA follows a structured 5-layer SEO evaluation model:
 
 ### Layer 1 — Crawlability
-- Status code validation
-- Crawl depth analysis
-- Robots.txt blocking detection
-- Broken link detection
+
+Robots.txt, Sitemap coverage, crawl depth, orphan pages, broken links
 
 ### Layer 2 — Indexability
-- Canonical detection & validation
-- Noindex detection
-- HTTPS validation
+
+Canonical correctness, duplicate content ratio, noindex misuse
 
 ### Layer 3 — On-Page SEO
-- Title tag presence
-- Meta description presence
 
-### Layer 4 — Content Quality
-- Word count scoring
-- Page speed scoring
-- Thin content detection
+Title quality, metadata presence, header hierarchy, structured data
 
-### Layer 5 — Programmatic SEO Signals
-- URL structure analysis
-- URL pattern consistency
+### Layer 4 — Content & Authority
 
----
+Word count adequacy, uniqueness score, topical authority, semantic coverage
 
-## 🧠 Site-Level Intelligence (Key Feature)
+### Layer 5 — Programmatic SEO Scalability
 
-Unlike basic tools, PSRA performs cross-page analysis:
-
-- Duplicate title detection
-- Thin content ratio
-- Duplicate content detection (hash-based)
-- Orphan page detection (internal link graph)
-- URL pattern consistency scoring
+Template consistency, metadata automation readiness, URL pattern uniformity, crawl budget efficiency
 
 ---
 
-## ⚙️ Scoring Engine
+## 🧠 Processing Lifecycle
 
-- Category-wise scoring:
-  - Crawlability
-  - Indexability
-  - On-Page
-  - Content
-  - Programmatic
+User Flow:
 
-- Weighted scoring model:
-  - Crawlability → 30%
-  - Indexability → 25%
-  - On-Page → 20%
-  - Content → 15%
-  - Programmatic → 10%
+```
+Enter Domain → Crawl → Data Extraction → SEO Analysis → Scoring Engine → Dashboard Reporting
+```
 
-- Intelligent adjustments:
-  - Thin content penalty
-  - Duplicate content penalty
-  - Duplicate title penalty
-  - Orphan page penalty
-  - URL pattern boost
+System Components:
+
+* Website Crawling Engine
+* Data Extraction Layer
+* SEO Analysis Engine
+* Scoring Engine
+* Reporting Dashboard
 
 ---
 
-## 📊 Dashboard Features
+## ⚙️ Tech Stack
 
-- SEO score cards
-- Issue detection (High / Medium / Low)
-- Page-level data table
-- Visual analytics:
-  - Score distribution
-  - Issue severity
-  - Crawl depth
+### Backend
+
+* Node.js (Next.js API routes - current implementation)
+* Prisma ORM
+* PostgreSQL (Planned Cloud: Supabase / Neon)
+
+### Frontend
+
+* Next.js (React-based)
+* Tailwind CSS (UI enhancements planned)
+* Chart visualizations (Phase 3)
+
+### Infrastructure (Planned)
+
+* Backend Hosting: Render / Railway
+* Frontend Hosting: Vercel
+* DB Hosting: Supabase
 
 ---
 
 ## 🗄 Database Design
 
-Stores:
+The system stores:
 
-- Crawl sessions
-- Pages and metadata
-- SEO parameter results
-- Internal link graph
-- Category scores
-- Final SEO readiness score
-
----
-
-## ✅ Current Progress (MVP)
-
-### ✔ Completed
-
-- Website crawler (BFS-based)
-- Metadata extraction
-- Internal link graph
-- SEO parameter engine (multi-layer)
-- Site-level intelligence
-- Scoring engine with weighted model
-- Issue detection engine
-- Dashboard UI with charts
+* Website-level data
+* Crawl session data
+* Page-level metadata
+* Parameter-level evaluations
+* Category-level scores
+* Overall SEO readiness score
 
 ---
 
-## 🚧 Remaining (Next Phases)
+## ✅ Current MVP Progress
 
-### Crawlability
-- Sitemap parsing
-- Crawl budget efficiency
+### ✔ Base Architecture Completed
 
-### Indexability
-- Redirect chain detection
-- HTTP/HTTPS duplication
-
-### On-Page
-- Header hierarchy (H1–H6)
-- Keyword optimization
-
-### Content
-- Semantic coverage (NLP)
-- Entity detection
-
-### Programmatic SEO
-- Template consistency detection
-- Metadata automation readiness
-- Internal linking automation score
+* Project structure initialized
+* Prisma schema configured
+* Crawl session orchestration implemented
+* Domain → Crawl → Result pipeline working
+* Layered scoring structure implemented (mock scoring for now)
+* Dynamic results routing (`/results/[id]`)
 
 ---
 
-## 🧱 Tech Stack
+## 🗺 Development Roadmap
 
-### Backend
-- Next.js (API routes)
-- Prisma ORM
-- PostgreSQL
+### Phase 1 — Core Engine (In Progress)
 
-### Frontend
-- Next.js (React)
-- Recharts (visualization)
-- Tailwind CSS (planned)
+* Basic crawler
+* Metadata extraction
+* Initial 5 critical parameters
+* Structured scoring logic
+* Working API response format
+
+### Phase 2 — Full SEO Intelligence Engine
+
+* Complete 40-parameter model
+* Database persistence
+* Internal link graph analysis
+* Asynchronous crawl processing
+* Category-level & page-level scoring
+
+### Phase 3 — Dashboard & Optimization
+
+* Interactive reporting dashboard
+* Category breakdown visualization
+* Performance optimization
+* Scalability enhancements
+
+---
+
+## 🎯 Target Users
+
+* SaaS Founders
+* SEO Agencies
+* Affiliate Marketers
+* Growth Teams
+* Content Platform Owners
+* Programmatic SEO Teams
+
+---
+
+## 📊 Success Metrics
+
+* Issue detection accuracy
+* Analysis completion time
+* Crawl scalability
+* User adoption & engagement
+
+---
+
+## 🔮 Future Enhancements
+
+* Automated SEO fix suggestions
+* Programmatic page generation
+* Competitive benchmarking
+* AI-powered citation tracking
+* AEO/GEO optimization
 
 ---
 
@@ -197,6 +200,7 @@ cd psra
 npm install
 npx prisma generate
 npm run dev
+```
 
 Create a `.env` file:
 
